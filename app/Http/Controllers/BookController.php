@@ -31,4 +31,19 @@ class BookController extends Controller
 
         return response(new BookResponse($book->load('genre')), Response::HTTP_CREATED);
     }
+
+    public function destroy(Book $book)
+    {
+        /** @var User $user */
+        $user = Auth::user();
+
+        if($user->id != $book->user_id){
+            return response([
+                'message' => 'This book is not in your favorite list.',
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+
+        $book->delete();
+        return response('',Response::HTTP_NO_CONTENT);
+    }
 }

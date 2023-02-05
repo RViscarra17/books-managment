@@ -15,6 +15,7 @@ class BookResponse extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'title' => $this->title,
             'author' => $this->author,
             'genre' => $this->whenLoaded('genre', fn() => $this->genre->name),

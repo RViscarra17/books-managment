@@ -21,8 +21,9 @@ Route::post('/users', [UserController::class, 'store']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::post('/books', [BookController::class, 'store']);
     Route::get('/books', [BookController::class, 'index']);
+    Route::post('/books', [BookController::class, 'store']);
+    Route::delete('/books/{book}', [BookController::class, 'destroy']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
