@@ -10,6 +10,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BookController extends Controller
 {
+    public function index()
+    {
+        /** @var User $user */
+        $user = Auth::user();
+
+        $bookCollection = $user->books->load('genre');
+
+        return response(BookResponse::collection($bookCollection), Response::HTTP_OK);
+    }
+
     public function store(BookRequest $request)
     {
         $bookInformation = $request->all();
